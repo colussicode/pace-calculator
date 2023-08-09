@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="calcular">Calcular</string>
+    <string name="texto_final">Insira os dados acima para calcular o tempo preditado</string>
+    <string name="distancia">Distância:</string>
+    <string name="tempo">Tempo:</string>
+    <string name="preditor">Conheça seu ritmo de corrida e alcance seus objetivos!</string>
+</resources>
