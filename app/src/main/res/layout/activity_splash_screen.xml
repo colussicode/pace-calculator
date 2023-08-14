@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/splash_screen_background"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -11,6 +12,6 @@
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@drawable/baseline_history_24" />
+        android:src="@drawable/logo" />
 
 </LinearLayout>
