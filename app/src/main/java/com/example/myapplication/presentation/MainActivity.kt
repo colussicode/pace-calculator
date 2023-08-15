@@ -1,8 +1,9 @@
-package com.example.myapplication
+package com.example.myapplication.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.commit
+import com.example.myapplication.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +30,5 @@ class MainActivity : AppCompatActivity() {
 
             false
         }
-
     }
-
 }
