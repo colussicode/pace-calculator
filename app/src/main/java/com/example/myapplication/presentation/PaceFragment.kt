@@ -48,34 +48,36 @@ class PaceFragment : Fragment() {
 
         btn_calcular.setOnClickListener {
 
+            if(isValidTimeFormat(edt_Tempo.text.toString())) {
+                val tempoStr = edt_Tempo.text.toString()
+                val distanciaStr = edt_Distancia.text.toString()
 
+                if (tempoStr.isNotEmpty() && distanciaStr.isNotEmpty()) {
 
-            val tempoStr = edt_Tempo.text.toString()
-            val distanciaStr = edt_Distancia.text.toString()
+                    val tempoMinutos = formatarTempo(tempoStr).toString().toLong()
+                    val distanciaKM = distanciaStr.toLong()
+                    val paceMedio = tempoMinutos / distanciaKM
 
+                    tv_result.text = "${formatarSegundos(paceMedio)}"
 
-            if (tempoStr.isNotEmpty() && distanciaStr.isNotEmpty()) {
+                    val pace = formatarSegundos(paceMedio)?.let { pace ->
+                        Pace(
+                            0,
+                            tempoStr,
+                            distanciaStr,
+                            pace
+                        )
+                    }
 
-                val tempoMinutos = formatarTempo(tempoStr).toString().toLong()
-                val distanciaKM = distanciaStr.toLong()
-                val paceMedio = tempoMinutos / distanciaKM
+                    CoroutineScope(Dispatchers.IO).launch {
+                        dao.insert(pace!!)
+                    }
 
-                tv_result.text = "${formatarSegundos(paceMedio)}"
-
-                val pace = Pace(
-                    0,
-                    tempoStr,
-                    distanciaStr,
-                    paceMedio.toString()
-                )
-
-                CoroutineScope(Dispatchers.IO).launch {
-                    dao.insert(pace)
+                } else {
+                    Toast.makeText(context, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
                 }
-
-
             } else {
-                Toast.makeText(context, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Formato de tempo inválido", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -98,6 +100,11 @@ class PaceFragment : Fragment() {
         val segundos = (dados.time - referencia.time) / 1000L
 
         return segundos
+    }
+
+    fun isValidTimeFormat(input: String?): Boolean {
+        val regex = Regex("^([01]d|2[0-3]):([0-5]d)$")
+        return input?.matches(regex) ?: false
     }
 
     companion object {

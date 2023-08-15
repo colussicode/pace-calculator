@@ -37,11 +37,13 @@ class PaceAdapter : ListAdapter<Pace, PaceViewHolder>(PaceAdapter) {
 }
 
 class PaceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private val textViewPaceId: TextView = view.findViewById(R.id.textview_pace_id)
     private val textViewKm : TextView = view.findViewById(R.id.textview_km)
     private val textViewTempo : TextView = view.findViewById(R.id.textview_result_time)
     private val textViewPace : TextView = view.findViewById(R.id.textview_result_pace)
 
     fun bind(pace: Pace) {
+        textViewPaceId.text = pace.id.toString() + "⁰"
         textViewKm.text = pace.distance
         textViewTempo.text = pace.time
         textViewPace.text = pace.pace

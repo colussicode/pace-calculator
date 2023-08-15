@@ -10,6 +10,7 @@
         android:id="@+id/ctn_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:name="com.example.myapplication.presentation.PaceFragment"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/orange_300"
         app:menu="@menu/bottom_bar_menu" />
 
 
