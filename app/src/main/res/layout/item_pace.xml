@@ -1,69 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_marginTop="8dp"
+    android:padding="8dp"
     android:layout_marginStart="8dp">
 
     <TextView
-        android:text="Distância"
+        android:id="@+id/textview_distance"
+        android:text="Distância:"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textview_km"/>
 
     <TextView
         android:id="@+id/textview_km"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Km"/>
-
-    <View
-        android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@color/teal_200"/>
+        android:layout_height="wrap_content"
+        tools:text="Km"
+        app:layout_constraintStart_toEndOf="@id/textview_distance"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textview_time"
+        />
 
     <TextView
+        android:id="@+id/textview_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Tempo"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintStart_toEndOf="@id/textview_km"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textview_result_time"
+        />
 
     <TextView
-        android:id="@+id/textview_tempo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="HH:MM:SS"/>
-
-    <View
-        android:layout_marginTop="8dp"
+        android:id="@+id/textview_result_time"
         android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@color/teal_200"/>
-
-    <TextView
-        android:text="PACE"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        tools:text="12"
+        app:layout_constraintStart_toEndOf="@id/textview_time"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textview_pace"
+        />
 
     <TextView
         android:id="@+id/textview_pace"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Km/min"/>
+        android:text="Pace"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/textview_result_time"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textview_result_pace"
+        />
 
+    <TextView
+        android:id="@+id/textview_result_pace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="12"
+        app:layout_constraintStart_toEndOf="@id/textview_pace"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <View
-        android:layout_marginTop="8dp"
-        android:layout_width="wrap_content"
+        android:id="@+id/view_separator"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/teal_200"
-        android:layout_marginBottom="16dp"/>
+        app:layout_constraintTop_toBottomOf="@id/textview_distance"
+        android:layout_marginTop="5dp"
+        android:background="@color/black"/>
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
