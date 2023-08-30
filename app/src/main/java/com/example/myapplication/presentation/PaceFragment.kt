@@ -56,11 +56,12 @@ class PaceFragment : Fragment() {
 
                     val tempoMinutos = formatarTempo(tempoStr).toString().toLong()
                     val distanciaKM = distanciaStr.toLong()
-                    val paceMedio = tempoMinutos / distanciaKM
+                    val paceMedio = tempoMinutos.toDouble() / distanciaKM.toDouble()
+                    val formattedPace = formatarSegundos(paceMedio.toLong())
 
-                    tv_result.text = "${formatarSegundos(paceMedio)}"
+                    tv_result.text = formattedPace
 
-                    val pace = formatarSegundos(paceMedio)?.let { pace ->
+                    val pace = formattedPace?.let { pace ->
                         Pace(
                             0,
                             tempoStr,
@@ -69,10 +70,14 @@ class PaceFragment : Fragment() {
                         )
                     }
 
-                    CoroutineScope(Dispatchers.IO).launch {
-                        dao.insert(pace!!)
-                    }
+                    if (pace != null){
+                        CoroutineScope(Dispatchers.IO).launch {
+                            dao.insert(pace)
+                        }
 
+                    } else {
+                        Toast.makeText(context, "Erro ao criar objeto Toast", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Toast.makeText(context, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
                 }
@@ -102,9 +107,9 @@ class PaceFragment : Fragment() {
         return segundos
     }
 
-    fun isValidTimeFormat(input: String?): Boolean {
-        val regex = Regex("^([01]d|2[0-3]):([0-5]d)$")
-        return input?.matches(regex) ?: false
+    fun isValidTimeFormat(time: String): Boolean {
+        val pattern = "^([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)\$"
+        return time.matches(pattern.toRegex())
     }
 
     companion object {
