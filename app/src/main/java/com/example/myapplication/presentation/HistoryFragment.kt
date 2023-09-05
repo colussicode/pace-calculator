@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.PaceApplication
@@ -15,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -24,13 +27,17 @@ class HistoryFragment : Fragment() {
     private lateinit var dao: PaceDao
     private lateinit var paceRv: RecyclerView
     private lateinit var paceAdapter: PaceAdapter
+    private lateinit var paceActionManager: PaceActionManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         database = (requireActivity().application as PaceApplication).getDatabase()
         dao = database.paceDao()
+        paceActionManager = PaceActionManager(dao)
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,9 +61,36 @@ class HistoryFragment : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Botão "Delete All" pelo ID
+        val btnDeleteAll: Button = view.findViewById(R.id.btn_delete_all)
+
+        // Clique para o botão "Delete All"
+        btnDeleteAll.setOnClickListener {
+            deleteAllPaceData()
+        }
+    }
+
+    private fun deleteAllPaceData() {
+        GlobalScope.launch(Dispatchers.IO) {
+            paceActionManager.deleteAllPaces()
+
+            // Após a exclusão, atualize a lista de paces
+            val paceList = dao.getAllPaces()
+            withContext(Dispatchers.Main) {
+                paceAdapter.submitList(paceList)
+            }
+        }
+    }
+
     companion object {
         fun newInstance() : HistoryFragment {
             return HistoryFragment()
         }
     }
 }
+
+
+

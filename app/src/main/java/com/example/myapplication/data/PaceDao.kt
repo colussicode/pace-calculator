@@ -12,4 +12,7 @@ interface PaceDao {
 
     @Query("SELECT * FROM Pace")
     fun getAllPaces() : List<Pace>
+
+    @Query("DELETE from pace")
+    fun deleteAllPaces()
 }
