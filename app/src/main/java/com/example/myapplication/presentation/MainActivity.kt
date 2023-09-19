@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                 setReorderingAllowed(true)
             }
 
-            false
+            true
         }
     }
 }
